@@ -40,5 +40,7 @@
 ## .Velo File Format
 
 JSON Serialized dictionary
+
 Key = String index for frame (real time)
+
 Value = Frame number to be mapped to real time frame.
