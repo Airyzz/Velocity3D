@@ -1,6 +1,19 @@
 # Velocity3D
  A series of scripts to apply velocity from After Effects and Sony Vegas to 3D Packages
  
+
+
+## .Velo File Format
+
+JSON Serialized dictionary
+
+Key = String index for frame (real time)
+
+Value = Frame number to be mapped to real time frame.
+
+
+ 
+ 
  ## How To Use:
 
 ### Blender:
@@ -30,17 +43,3 @@
 6. Export Velocity File
 
 7. Apply Velocity in Maya using Velocity Plugin
-
-
-
-
-
-
-
-## .Velo File Format
-
-JSON Serialized dictionary
-
-Key = String index for frame (real time)
-
-Value = Frame number to be mapped to real time frame.
