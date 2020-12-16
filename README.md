@@ -47,7 +47,7 @@ Value = Frame number to be mapped to real time frame.
 
 ![](tutorial_gifs/export_velocity.gif)
 
-5. Use Velocity Render script in Blender to render only the required frames
+5. Use Velocity Render script in Blender to render only the required frames (Recommending to turn on the system console to see progress of render, as it will not show the usual render window)
 
 ![](tutorial_gifs/velocity_render.gif)
 
