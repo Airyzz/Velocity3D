@@ -7,14 +7,14 @@ from collections import OrderedDict
 def removeTimeWarp():
     connections = cmds.listConnections('time1.timewarpIn_Raw', source=True, destination=False)
 
-    if(len(connections) == 0):
+    if((connections == None) or len(connections) == 0):
         cmds.warning("No Timewarp to delete")
     else:
         cmds.delete(connections[0])
         cmds.warning("Timewarp Removed")
         
     framenum = cmds.getAttr('Velocity_Controller.fc')
-    cmds.playbackOptions(maxTime=framenum, animationEndTime = framenum, minTime=0, animationStartTime=0)	
+    cmds.playbackOptions(maxTime=framenum, animationEndTime = framenum, minTime=0, animationStartTime=0)
 
 def __importfile_dialog__(filter_str="", caption_str=""):
     if cmds.about(version=True)[:4] == "2012":
