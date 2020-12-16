@@ -15,6 +15,7 @@ namespace velocity_export
     public class EntryPoint
     {
         public List<VideoCut> video_cuts = new List<VideoCut>();
+        private string videoName = "";
         public void FromVegas(Vegas myVegas)
         {
             // Loop over tracks
@@ -35,7 +36,7 @@ namespace velocity_export
                             // Media name
 
                             var videoMedia = vevnt.ActiveTake.Media;
-                            string videoName = vevnt.ActiveTake.Name;
+                            videoName = vevnt.ActiveTake.Name;
                             // Video envelope
                             Envelope VelEnv = FindVEEnvelope(vevnt, EnvelopeType.Velocity);
                             // Check if video has envelope
@@ -64,14 +65,15 @@ namespace velocity_export
                                 cut.endFrame += cut.startFrame;
                             }
                             video_cuts.Add(cut);
-                            
+
                         }
                     }
                 }
             }
 
             string velocityJson = JToken.FromObject(video_cuts).ToString(Formatting.Indented);
-            string outputPath = Path.Combine("D:/velostuff", "blabla.json");
+            string outputPath = ShowSaveFileDialog("Velocity JSON file (*.json)|*.json",
+                                                  "Save Velocity as JSON // © SHEILAN", videoName + "_cut");
             Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
             File.WriteAllText(outputPath, velocityJson);
         }
@@ -86,6 +88,38 @@ namespace velocity_export
                 }
             }
             return null;
+        }
+
+        private string ShowSaveFileDialog(string filter, string title, string defaultFilename)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (null == filter)
+            {
+                filter = "All Files (*.*)|*.*";
+            }
+            saveFileDialog.Filter = filter;
+            if (null != title)
+                saveFileDialog.Title = title;
+            saveFileDialog.CheckPathExists = true;
+            saveFileDialog.AddExtension = true;
+            if (null != defaultFilename)
+            {
+                string initialDir = Path.GetDirectoryName(defaultFilename);
+                if (Directory.Exists(initialDir))
+                {
+                    saveFileDialog.InitialDirectory = initialDir;
+                }
+                saveFileDialog.DefaultExt = Path.GetExtension(defaultFilename);
+                saveFileDialog.FileName = Path.GetFileName(defaultFilename);
+            }
+            if (System.Windows.Forms.DialogResult.OK == saveFileDialog.ShowDialog())
+            {
+                return Path.GetFullPath(saveFileDialog.FileName);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
