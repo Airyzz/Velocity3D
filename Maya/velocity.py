@@ -1,20 +1,40 @@
 import maya.cmds as cmds
 import maya.mel as mel
 import json
+import os
 from collections import OrderedDict
 
 def removeTimeWarp():
-    mel.eval("source sceneTimeWarp;")
-    mel.eval("deleteTimeWarp")
-    
-    try:
-        timescale = cmds.getAttr('Velocity_Controller.ts')
-        framenum = cmds.getAttr('Velocity_Controller.fc')
-        cmds.playbackOptions(maxTime=framenum, animationEndTime = framenum, minTime=0, animationStartTime=0)	
-    except:
-        timescale = 0.1
-    
-    cmds.warning("Timewarp Removed")
+    connections = cmds.listConnections('time1.timewarpIn_Raw', source=True, destination=False)
+
+    if(len(connections) == 0):
+        cmds.warning("No Timewarp to delete")
+    else:
+        cmds.delete(connections[0])
+        cmds.warning("Timewarp Removed")
+        
+    framenum = cmds.getAttr('Velocity_Controller.fc')
+    cmds.playbackOptions(maxTime=framenum, animationEndTime = framenum, minTime=0, animationStartTime=0)	
+
+def __importfile_dialog__(filter_str="", caption_str=""):
+    if cmds.about(version=True)[:4] == "2012":
+        import_from = cmds.fileDialog2(
+            fileMode=1, fileFilter=filter_str, caption=caption_str)
+    else:
+        import_from = cmds.fileDialog2(fileMode=1,
+                                       dialogStyle=2,
+                                       fileFilter=filter_str,
+                                       caption=caption_str)
+
+    if not import_from or import_from[0].strip() == "":
+        return None
+
+    path = import_from[0].strip()
+    path_split = os.path.splitext(path)
+    if path_split[1] == ".*":
+        path = path_split
+
+    return path
 
 def applyTimescale(timescale):
     tscale = 1 / timescale
@@ -51,7 +71,10 @@ def applyVelo(velo_frames, timescale=1):
         cmds.timeWarp(warp, e=1, mf=(i, i))
 
 def __apply_timescale__():
-    removeTimeWarp()
+    try:
+        removeTimeWarp()
+    except:
+        print("No Timewarp applied")
     
     try:
         timescale = cmds.getAttr('Velocity_Controller.ts')
