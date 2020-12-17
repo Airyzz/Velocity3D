@@ -15,13 +15,13 @@ Value = Frame number to be mapped to real time frame.
 #### 3D Software:
 - Blender
 - Maya
- 
+- Unreal Engine 4
+
 #### Video Editors:
 - Adobe After Effects
 
 ### Coming Later:
 #### 3D Software:
-- Unreal Engine 4
 - Cinema 4D
 
 #### Video Editors:
@@ -84,3 +84,13 @@ Value = Frame number to be mapped to real time frame.
 7. Apply Velocity in Maya using Velocity Plugin
 
 ![](tutorial_gifs/import_velo_maya.gif)
+
+
+### Unreal Engine:
+Gif Guides coming soon
+1. Do a low quality render of your sequence
+2. Apply velo to low quality render in AE
+3. Export .Velo file
+4. In UE4 Content Browser, select your original sequence, and execute the velocity.py script
+5. Select your .velo file in the dialog
+6. A new sequence will be created next to the original with your applied velo
