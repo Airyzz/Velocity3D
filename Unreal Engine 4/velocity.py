@@ -1,12 +1,16 @@
+#Put your file path here:
+file_path = r"D:\Desktop\My Sync.velo"
+
+
 import unreal 
 import json
 from collections import OrderedDict
 import os
 #UI Stuff
-import Tkinter, tkFileDialog
+#import Tkinter, tkFileDialog
 
-root = Tkinter.Tk()
-root.withdraw()
+#root = Tkinter.Tk()
+#root.withdraw()
 
 def createNewLevelSequence(dest, name):
     return unreal.AssetToolsHelpers.get_asset_tools().create_asset(asset_name = name, package_path = dest, asset_class = unreal.LevelSequence, factory=unreal.LevelSequenceFactoryNew())
@@ -16,12 +20,13 @@ def addVideoCut(track, seq_asset):
     section.set_editor_property('sub_sequence', seq_asset)
     return section
 
-file_path = tkFileDialog.askopenfilename()
+#file_path = tkFileDialog.askopenfilename()
 
 with open(file_path) as json_file:
     data = json.load(json_file, object_pairs_hook=OrderedDict)
 
-    file_name = os.path.splitext(file_path)[0].split('/')[-1].replace(' ', '_')
+    file_name = os.path.splitext(file_path)[0].split('/')[-1].split('\\')[-1].replace(' ', '_')
+    print(file_name)
 
     utility_library = unreal.EditorUtilityLibrary
     seq_asset = utility_library.get_selected_assets()[0]
