@@ -101,3 +101,5 @@ Gif Guides coming soon
 4. In UE4 Content Browser, select your original sequence, and execute the velocity.py script
 5. Select your .velo file in the dialog
 6. A new sequence will be created next to the original with your applied velo
+Notes:
+The new sequence will play back very quickly as it is set to 300fps. When you render, make sure you reinterprete the file to match the framerate of your original composition
