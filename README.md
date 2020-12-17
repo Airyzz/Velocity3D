@@ -98,8 +98,9 @@ Gif Guides coming soon
 1. Do a low quality render of your sequence
 2. Apply velo to low quality render in AE
 3. Export .Velo file
-4. In UE4 Content Browser, select your original sequence, and execute the velocity.py script
-5. Select your .velo file in the dialog
-6. A new sequence will be created next to the original with your applied velo
+4. Edit the 'velocity.py' file, and replace the file path at the top with the path to your .velo file
+5. In UE4 Content Browser, select your original sequence, and execute the velocity.py script
+6. Select your .velo file in the dialog
+7. A new sequence will be created next to the original with your applied velo
 Notes:
 The new sequence will play back very quickly as it is set to 300fps. When you render, make sure you reinterprete the file to match the framerate of your original composition
