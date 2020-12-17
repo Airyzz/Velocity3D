@@ -13,8 +13,8 @@ Value = Frame number to be mapped to real time frame.
 
 ### Supported Applications:
 #### 3D Software:
-- Blender
-- Maya
+- [Blender](https://github.com/Airyzz/Velocity3D#blender)
+- [Maya](https://github.com/Airyzz/Velocity3D#maya)
 - Unreal Engine 4
 
 #### Video Editors:
