@@ -88,6 +88,13 @@ Value = Frame number to be mapped to real time frame.
 
 ### Unreal Engine:
 Gif Guides coming soon
+
+#### First Time Setup:
+1. go to Edit > Plugins
+2. Search for 'script'
+3. Enable: 'Python Editor Script Plugin', 'Sequencer Scripting', and 'Editor Scripting Utilities'
+
+#### Working with Velo
 1. Do a low quality render of your sequence
 2. Apply velo to low quality render in AE
 3. Export .Velo file
