@@ -55,10 +55,12 @@ class ImportVeloTTR(Operator, ImportHelper):
             f.close()
             velo = json.loads(data)
 
-            #Set time remap mode to Frames    
+            #Set time remap mode to Frames
+            bpy.context.scene.ttr.activate = True    
             bpy.context.scene.ttr.type = 'FRAMES'
             
-            
+            if(bpy.context.scene.animation_data == None):
+                bpy.context.scene.animation_data_create()
             
             #If action doesnt exist, create a new one
             if(bpy.context.scene.animation_data.action == None):
