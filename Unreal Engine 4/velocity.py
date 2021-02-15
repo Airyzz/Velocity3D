@@ -1,12 +1,16 @@
+#Put your file path here:
+file_path = r"D:\Desktop\My Sync.velo"
+
+
 import unreal 
 import json
 from collections import OrderedDict
 import os
 #UI Stuff
-import Tkinter, tkFileDialog
+#import Tkinter, tkFileDialog
 
-root = Tkinter.Tk()
-root.withdraw()
+#root = Tkinter.Tk()
+#root.withdraw()
 
 def createNewLevelSequence(dest, name):
     return unreal.AssetToolsHelpers.get_asset_tools().create_asset(asset_name = name, package_path = dest, asset_class = unreal.LevelSequence, factory=unreal.LevelSequenceFactoryNew())
@@ -16,12 +20,13 @@ def addVideoCut(track, seq_asset):
     section.set_editor_property('sub_sequence', seq_asset)
     return section
 
-file_path = tkFileDialog.askopenfilename()
+#file_path = tkFileDialog.askopenfilename()
 
 with open(file_path) as json_file:
     data = json.load(json_file, object_pairs_hook=OrderedDict)
 
-    file_name = os.path.splitext(file_path)[0].split('/')[-1].replace(' ', '_')
+    file_name = os.path.splitext(file_path)[0].split('/')[-1].split('\\')[-1].replace(' ', '_')
+    print(file_name)
 
     utility_library = unreal.EditorUtilityLibrary
     seq_asset = utility_library.get_selected_assets()[0]
@@ -32,6 +37,9 @@ with open(file_path) as json_file:
 
     #Create new sequence and add the original as a sub sequence
     master_sequence = createNewLevelSequence(assetPath, assetName + "_" + file_name + "_")
+
+    master_sequence.set_display_rate(seq_asset.get_display_rate())
+
     shotsTrack = master_sequence.add_master_track(unreal.MovieSceneCinematicShotTrack)
     timescaleTrack = master_sequence.add_master_track(unreal.MovieSceneSlomoTrack)
     timescale_channel = timescaleTrack.add_section().get_channels()[0]
